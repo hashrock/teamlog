@@ -43,7 +43,6 @@ http://localhost:3000/を参照します。
 TODO
 ----------
 
- * タグ機能
  * 簡易ログイン機能
  * Markdown Preview
 
