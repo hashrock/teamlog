@@ -5,6 +5,9 @@ var marked = require('marked');
 var dotenv = require('dotenv');
 dotenv.load();
 
+var Blog = require('../models/blogModel');
+var BlogBackup = require('../models/blogBackupModel');
+
 marked.setOptions({
 	ghm: true,
 	breaks: true,
@@ -16,29 +19,27 @@ marked.setOptions({
 
 mongoose.connect(process.env.MONGODB_URL + "/teamlog");
 
-var teamlogSchema = mongoose.Schema({
-	user: String,
-	title: String,
-	content: String,
-	room: String,
-	sasuga: Number,
-	rendered: String,
-	deleted: Date,
-	updated: {
-		type: Date,
-		default: Date.now
-	}
-});
-var Blog = mongoose.model('teamlog', teamlogSchema);
-var BlogBackup = mongoose.model('teamlogBackup', teamlogSchema);
+
+
 
 module.exports = {
 	index: function (req, res) {
-		var cond = {
-			deleted: {
-				$exists: false
-			}
-		};
+		var cond;
+		if (req.query && req.query.tag) {
+			cond = {
+				tag: req.query.tag,
+				deleted: {
+					$exists: false
+				}
+			};
+		} else {
+			cond = {
+				deleted: {
+					$exists: false
+				}
+			};
+		}
+
 		return Blog.find(cond).sort({
 			updated: -1
 		}).exec(function (err, docs) {
@@ -78,6 +79,13 @@ module.exports = {
 		instance.user = data.name;
 		instance.title = data.title;
 		instance.content = data.content;
+		if (data.tag) {
+			instance.tag = data.tag.split(",").map(function (item) {
+				return item.trim();
+			}).filter(function (item) {
+				return item.length > 0;
+			});
+		}
 		instance.room = "teamlog";
 		instance.sasuga = 0;
 		instance.save(function (err) {
@@ -117,7 +125,12 @@ module.exports = {
 						$set: {
 							name: data.user,
 							title: data.title,
-							content: data.content
+							content: data.content,
+							tag: data.tag.split(",").map(function (item) {
+								return item.trim();
+							}).filter(function (item) {
+								return item.length > 0;
+							})
 						}
 					},
 					function (err) {

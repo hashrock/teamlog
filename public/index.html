@@ -26,6 +26,11 @@
 					<span class="glyphicon glyphicon-pencil"></span>
 				</button>
 			</div>
+			<p>
+				<span class="tagcloud" ng-repeat="tag in tags"><a href="/#/?tag={{tag}}">{{tag}}</a>
+				</span>
+
+			</p>
 		</div>
 		<div>
 			<form ng-submit="post()" ng-show="postForm">
@@ -35,6 +40,7 @@
 
 				<input class="form-control" type="text" ng-model="name" size="30" placeholder="名前" required>
 				<input class="form-control" type="text" ng-model="title" size="30" placeholder="タイトル" required>
+				<input class="form-control" type="text" ng-model="tag" size="30" placeholder="タグ（カンマ区切り）">
 				<textarea class="form-control" ng-model="content" id="" cols="30" rows="10" required></textarea>
 				<input class="form-control btn-primary" type="submit" value="投稿">
 			</form>
@@ -56,6 +62,11 @@
 					</div>
 				</h1>
 				<div ng-bind-html-unsafe='item.rendered'></div>
+				<p>
+					tags :
+					<span class="tag" ng-repeat="tag in item.tag"><a href="/#/?tag={{tag}}">{{tag}}</a>
+					</span>
+				</p>
 				<hr>
 			</div>
 
