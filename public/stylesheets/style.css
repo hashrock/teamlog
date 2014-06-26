@@ -21,5 +21,21 @@ img{
 	width: 70px;
 }
 
+span.tag{
+    color: #FFFFFF;
+    background: rgb(175, 167, 167);
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 1rem;
+    font-weight: bolder;
+    word-break: normal;
+    margin-right: 5px;
+}
+span.tag>a{
+    color: #FFFFFF;
+}
 
+span.tagcloud{
+    margin-right: 5px;
+}
 

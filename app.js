@@ -5,6 +5,8 @@
 var express = require('express');
 //var routes = require('./routes');
 var blogRoute = require('./routes/blog');
+var tagRoute = require('./routes/tag');
+
 var http = require('http');
 var path = require('path');
 require('express-resource');
@@ -34,6 +36,7 @@ if ('development' === app.get('env')) {
 //app.get('/', routes.index);
 app.resource('blogs', require('./routes/blog'));
 app.get('/sasuga/:id', blogRoute.sasuga);
+app.get('/tags', tagRoute.index);
 
 http.createServer(app).listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
