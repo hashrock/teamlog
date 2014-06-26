@@ -40,7 +40,6 @@
 			</form>
 			<div ng-repeat="item in data">
 				<h1>{{item.title}} by {{item.user}}
-					<!-- Single button -->
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" ng-click="sasuga(item)">
 							<span class="glyphicon glyphicon-thumbs-up"></span>さすが({{item.sasuga}})</button>
@@ -60,7 +59,9 @@
 				<hr>
 			</div>
 
-			<p>powered by teamlog</p>
+			<p>
+				powered by <a href="https://github.com/181dev/teamlog">teamlog</a>
+			</p>
 		</div>
 	</div>
 

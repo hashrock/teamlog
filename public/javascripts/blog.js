@@ -31,7 +31,7 @@ function BlogCtrl($scope, $http) {
 	$scope.sasuga = function (item) {
 		if (item.sasuga) {
 			item.sasuga = parseInt(item.sasuga, 10) + 1;
-		}else{
+		} else {
 			item.sasuga = 1;
 		}
 

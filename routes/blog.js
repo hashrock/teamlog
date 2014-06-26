@@ -96,13 +96,22 @@ module.exports = {
 	},
 	update: function (req, res) {
 		var data = req.body;
+
 		return Blog.findOne({
 			_id: new ObjectId(req.params.blog)
 		}, function (err, old) {
-			old._id = mongoose.Types.ObjectId();
-			old.deleted = new Date();
-			return Blog.create(old, function (err) {
-				return Blog.findOneAndUpdate({
+			var backup = new BlogBackup();
+			backup.user = old.user;
+			backup.title = old.title;
+			backup.content = old.content;
+			backup.room = old.room;
+			backup.sasuga = old.sasuga;
+			backup.deleted = new Date();
+			backup.save(function (err) {
+				if (err) {
+					res.json([false, err]);
+				}
+				Blog.findOneAndUpdate({
 						_id: new ObjectId(req.params.blog)
 					}, {
 						$set: {
@@ -118,23 +127,31 @@ module.exports = {
 						res.json([true, ""]);
 					});
 			});
+
 		});
 
 		res.send("update: called as PUT method");
 	},
 	destroy: function (req, res) {
-		return Blog.findOneAndUpdate({
-				_id: new ObjectId(req.params.blog)
-			}, {
-				$set: {
-					deleted: new Date()
-				}
-			},
-			function (err) {
+		Blog.findById(new ObjectId(req.params.blog), function (err, item) {
+			var backup = new BlogBackup();
+			backup.user = item.user;
+			backup.title = item.title;
+			backup.content = item.content;
+			backup.room = item.room;
+			backup.sasuga = item.sasuga;
+			backup.deleted = new Date();
+			backup.save(function (err) {
 				if (err) {
-					console.log(err);
+					res.json([false, err]);
 				}
-				res.json([true, ""]);
+				item.remove(function (err) {
+					if (err) {
+						res.json([false, err]);
+					}
+					res.json([true, ""]);
+				});
 			});
+		});
 	}
 };
