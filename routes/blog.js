@@ -22,7 +22,6 @@ var teamlogSchema = mongoose.Schema({
 	content: String,
 	room: String,
 	sasuga: Number,
-	mode: String,
 	rendered: String,
 	deleted: Date,
 	updated: {
@@ -31,6 +30,7 @@ var teamlogSchema = mongoose.Schema({
 	}
 });
 var Blog = mongoose.model('teamlog', teamlogSchema);
+var BlogBackup = mongoose.model('teamlogBackup', teamlogSchema);
 
 module.exports = {
 	index: function (req, res) {
@@ -44,13 +44,7 @@ module.exports = {
 		}).exec(function (err, docs) {
 			var items = _.map(
 				docs, function (item) {
-					var rendered;
-					if (item.mode === "markdown") {
-						rendered = marked(item.content);
-					} else {
-						rendered = item.content.replace(/\r?\n/g, "<br />");
-					}
-					item.rendered = rendered;
+					item.rendered = marked(item.content);
 					return item;
 				}
 			);
@@ -85,7 +79,6 @@ module.exports = {
 		instance.title = data.title;
 		instance.content = data.content;
 		instance.room = "teamlog";
-		instance.mode = data.mode;
 		instance.sasuga = 0;
 		instance.save(function (err) {
 			if (err) {
@@ -115,8 +108,7 @@ module.exports = {
 						$set: {
 							name: data.user,
 							title: data.title,
-							content: data.content,
-							mode: data.mode
+							content: data.content
 						}
 					},
 					function (err) {

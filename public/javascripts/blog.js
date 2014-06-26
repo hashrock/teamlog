@@ -47,12 +47,10 @@ function BlogCtrl($scope, $http) {
 	$scope.post = function () {
 		var oid = $scope.oid;
 		var content = $scope.content;
-		mode = "markdown";
 		var data = {
 			name: $scope.name,
 			content: $scope.content,
 			title: $scope.title,
-			mode: mode,
 			sasuga: 0
 		};
 		if (oid === undefined || oid === null || oid === "") {
