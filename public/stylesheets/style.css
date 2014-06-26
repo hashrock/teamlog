@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#header{
+	position: relative;
+	height: 180px;
+}
+
+img{
+	max-width: 100%;
+}
+
+#newPost{
+	position: absolute;
+	right: 0;
+	top: 0px;	
+	border-radius: 70px;
+	height: 70px;
+	width: 70px;
+}
+
+
+
