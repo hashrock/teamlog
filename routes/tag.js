@@ -8,6 +8,12 @@ module.exports = {
 	//タグ一覧
 	index: function (req, res) {
 		Blog.find({}, function (err, items) {
+			if(!items || items.length === 0){
+				res.json({
+					"tags": []
+				});
+				return;
+			}
 			var alltag = items.map(function (item) {
 				return item.tag;
 			}).reduce(function (a, b) {
