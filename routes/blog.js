@@ -19,7 +19,18 @@ marked.setOptions({
 
 mongoose.connect(process.env.MONGODB_URL + "/teamlog");
 
+function splitTag(tagStr){
+    if(tagStr === undefined || tagStr.length === 0){
+        return [];
+    }
 
+    var result = tagStr.split(",").map(function (item) {
+		return item.trim();
+	}).filter(function (item) {
+		return item.length > 0;
+	});
+    return result;
+}
 
 
 module.exports = {
@@ -79,13 +90,7 @@ module.exports = {
 		instance.user = data.name;
 		instance.title = data.title;
 		instance.content = data.content;
-		if (data.tag) {
-			instance.tag = data.tag.split(",").map(function (item) {
-				return item.trim();
-			}).filter(function (item) {
-				return item.length > 0;
-			});
-		}
+		instance.tag = splitTag(data.tag);
 		instance.room = "teamlog";
 		instance.sasuga = 0;
 		instance.save(function (err) {
@@ -126,12 +131,8 @@ module.exports = {
 							name: data.user,
 							title: data.title,
 							content: data.content,
-							tag: data.tag.split(",").map(function (item) {
-								return item.trim();
-							}).filter(function (item) {
-								return item.length > 0;
-							})
-						}
+							tag: splitTag(data.tag)
+                        }
 					},
 					function (err) {
 						if (err) {
