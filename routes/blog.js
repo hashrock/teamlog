@@ -23,6 +23,9 @@ function splitTag(tagStr){
     if(tagStr === undefined || tagStr.length === 0){
         return [];
     }
+    if (tagStr instanceof Array){
+      return tagStr;
+    }
 
     var result = tagStr.split(",").map(function (item) {
 		return item.trim();
