@@ -6,4 +6,10 @@ services:
 before_script:
   - sleep 15
   - mongo mydb_test --eval 'db.addUser("travis", "test");'
-script: casperjs test test/casper.js
+  - npm install
+env:
+  - MONGODB_URL=mongodb://127.0.0.1:27017
+script:
+  - npm start
+  - sleep 3
+  - casperjs test test/casper.js
