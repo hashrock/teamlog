@@ -10,9 +10,8 @@ before_script:
   - wget https://github.com/n1k0/casperjs/archive/1.0.2.tar.gz -O /tmp/casper.tar.gz
   - tar -xvf /tmp/casper.tar.gz
   - export PATH=$PATH:$PWD/casperjs-1.0.2/bin/
+  - npm start &
 env:
   - MONGODB_URL=mongodb://127.0.0.1:27017
 script:
-  - npm start
-  - sleep 3
-  - casperjs test test/casper.js
+  - "npm test"
