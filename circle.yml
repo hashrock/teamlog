@@ -1,0 +1,3 @@
+test:
+  pre:
+    - casperjs test test/casper.js
