@@ -1,0 +1,9 @@
+{
+  "name": "teamlog",
+  "description": "Simple team blog.",
+  "repository": "https://github.com/hashrock/teamlog",
+  "keywords": ["node", "blog"],
+  "addons": [
+    "mongolab"
+  ]
+}
