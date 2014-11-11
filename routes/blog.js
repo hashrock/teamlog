@@ -17,7 +17,10 @@ marked.setOptions({
 	langPrefix: "hljs-"
 });
 
-var mongo_url = process.env.MONGODB_URL ? process.env.MONGODB_URL : "mongodb://localhost:27017";
+
+var mongo_url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : process.env.MONGODB_URL;
+mongo_url = mongo_url ? mongo_url : "mongodb://localhost:27017";
+
 mongoose.connect(mongo_url + "/teamlog");
 
 function splitTag(tagStr){
