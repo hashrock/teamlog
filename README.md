@@ -1,6 +1,8 @@
 teamlog
 =======
 
+[![Build Status](https://drone.io/github.com/hashrock/teamlog/status.png)](https://drone.io/github.com/hashrock/teamlog/latest)
+
 最低限の機能を持つチームブログエンジン。
 
 ![screenshot](screenshot.png)
