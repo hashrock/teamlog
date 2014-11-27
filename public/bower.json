@@ -1,0 +1,16 @@
+{
+  "name": "public",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hashrock/teamlog",
+  "authors": [
+    "hashrock <hashedrock@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

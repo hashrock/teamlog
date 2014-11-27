@@ -1,11 +1,9 @@
 <!doctype html>
-<html ng-app="teamlogApp" lang="en">
+<html v-app="teamlogApp" lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<title>teamlog</title>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.1/angular.min.js"></script>
-	<script src="javascripts/blog.js"></script>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -16,55 +14,55 @@
 </head>
 
 <body>
-	<div class="container" ng-controller="BlogCtrl">
+	<div class="container" id="BlogCtrl">
 		<div class="row">
 			<div id="header" class="col-xs-12">
 				<a href="/">
 					<img src="images/teamlog.png" alt="teamlog">
 				</a>
-				<button id="newPost" class="btn btn-default" ng-click="showPostForm()">
+				<button id="newPost" class="btn btn-default" v-on="click: showPostForm()">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</button>
 			</div>
 			<p>
-				<span class="tagcloud" ng-repeat="tag in tags"><a href="/#/?tag={{tag}}">{{tag}}</a>
+				<span class="tagcloud" v-repeat="tag : tags"><a href="/#/?tag={{tag}}">{{tag}}</a>
 				</span>
 
 			</p>
 		</div>
 		<div>
-			<form ng-submit="post()" ng-show="postForm">
-				<input type="hidden" ng-model="oid">
+			<form v-show="postForm">
+				<input type="hidden" v-model="oid">
 
-				<p ng-if="message" class="bg-info">{{message}}</p>
+				<p v-if="message" class="bg-info">{{message}}</p>
 
-				<input class="form-control" type="text" ng-model="name" size="30" placeholder="名前" required>
-				<input class="form-control" type="text" ng-model="title" size="30" placeholder="タイトル" required>
-				<input class="form-control" type="text" ng-model="tag" size="30" placeholder="タグ（カンマ区切り）">
-				<textarea class="form-control" ng-model="content" id="" cols="30" rows="10" required></textarea>
-				<input class="form-control btn-primary" type="submit" value="投稿">
+				<input class="form-control" type="text" v-model="name" size="30" placeholder="名前" required>
+				<input class="form-control" type="text" v-model="title" size="30" placeholder="タイトル" required>
+				<input class="form-control" type="text" v-model="tag" size="30" placeholder="タグ（カンマ区切り）">
+				<textarea class="form-control" v-model="content" id="" cols="30" rows="10" required></textarea>
+				<input class="form-control btn-primary" type="submit" v-on="post()" value="投稿">
 			</form>
-			<div ng-repeat="item in data">
+			<div v-repeat="item : data">
 				<h1>{{item.title}} by {{item.user}}
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" ng-click="sasuga(item)">
+						<button type="button" class="btn btn-default" v-on="click: sasuga(item)">
 							<span class="glyphicon glyphicon-thumbs-up"></span>さすが({{item.sasuga}})</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="glyphicon glyphicon-list"></span>
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li ng-click="edit(item)"><a href="#">編集</a>
+							<li v-on="click: edit(item)"><a href="#">編集</a>
 							</li>
-							<li ng-click="delete(item._id)"><a href="#">削除</a>
+							<li v-on="click: delete(item._id)"><a href="#">削除</a>
 							</li>
 						</ul>
 					</div>
 				</h1>
-				<div ng-bind-html-unsafe='item.rendered'></div>
+				<div>{{item.rendered}}</div>
 				<p>
 					tags :
-					<span class="tag" ng-repeat="tag in item.tag"><a href="/#/?tag={{tag}}">{{tag}}</a>
+					<span class="tag" v-repeat="tag : item.tag"><a href="/#/?tag={{tag}}">{{tag}}</a>
 					</span>
 				</p>
 				<hr>
@@ -75,6 +73,10 @@
 			</p>
 		</div>
 	</div>
+	<script src="bower_components/superagent/superagent.js"></script>
+	<script src="bower_components/vue/dist/vue.min.js"></script>
+	<script src="javascripts/blog.js"></script>
+
 
 </body>
 

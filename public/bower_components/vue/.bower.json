@@ -1,0 +1,30 @@
+{
+  "name": "vue",
+  "version": "0.11.0",
+  "main": "dist/vue.js",
+  "description": "Simple, Fast & Composable MVVM for building interative interfaces",
+  "authors": [
+    "Evan You <yyx990803@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".*",
+    "examples",
+    "test",
+    "grunt",
+    "gruntfile.js",
+    "*.json",
+    "*.md"
+  ],
+  "homepage": "https://github.com/yyx990803/vue",
+  "_release": "0.11.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.11.0",
+    "commit": "5bc3e30b694dc3b6aeeb87c24f88b9cd7a7259d6"
+  },
+  "_source": "git://github.com/yyx990803/vue.git",
+  "_target": "~0.11.0",
+  "_originalSource": "vue",
+  "_direct": true
+}
